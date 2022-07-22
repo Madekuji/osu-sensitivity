@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>osu!sensitivity</title>
+      <meta charset="utf-8" />
+      <meta name="description" content="Mouse sensitivity to tablet area.">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=STIX+Two+Text:ital@1&display=swap" rel="stylesheet">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <script src="https://apis.google.com/js/api.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#2d89ef">
+<meta name="theme-color" content="#ff66ab">
+  <script>
+    function slider() {
+      var sensRange = parseFloat(document.getElementById('sensRange').value);
+      document.getElementById('sens').value = sensRange;
+      execute();
+    }
+    function sens() {
+      var sens = parseFloat(document.getElementById('sens').value);
+      document.getElementById('sensRange').value = sens;
+      execute();
+    }
+      function execute(){
+        //var oldFS = parseFloat(document.getElementById('oldFS').value);
+        //var oldBORD = parseFloat(document.getElementById('oldBORD').value);
+        //var newFS = parseFloat(document.getElementById('newFS').value);
+        //var result = Math.round(parseFloat( oldBORD * ( newFS / oldFS ) ) * 10) / 10;
+        //document.getElementById('result').value = result;
+        var sens = parseFloat(document.getElementById('sens').value);
+        
+        var fullW = parseFloat(document.getElementById('fullW').value);
+        var fullH = parseFloat(document.getElementById('fullH').value);
+        var newW = Math.round(parseFloat( fullW / sens ) * 1000 ) / 1000;
+        var newH = Math.round(parseFloat( fullH / sens ) * 1000 ) / 1000;
+        document.getElementById('newW').value = newW;
+        document.getElementById('newH').value = newH;
+      }
+      function execute2(){
+        var newW = parseFloat(document.getElementById('newW').value);
+        var newH = parseFloat(document.getElementById('newH').value);
+      }
+      function copy1(){
+      document.querySelector("#newW").select();
+      document.execCommand('copy');
+    }
+    function copy2(){
+      document.querySelector("#newH").select();
+      document.execCommand('copy');
+    }
+  </script>
+  <style>
+    @media screen and (min-width: 601px) {
+      .main-div{
+        width: 500px;
+        margin: 20px auto;
+      }
+      .btn {
+      font-size: 1rem;
+      display: inline-block;
+      }
+      .form-control{
+        font-size: 1rem;
+        width: 6rem;
+        display: inline-block;
+      }
+      .logo {
+        padding: 3rem;
+      }
+      .logo-img{
+        width: 40%;
+      }
+      .input-box{
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .main-div{
+        width: 100%;
+        padding: 1rem;
+      }
+      .btn {
+      font-size: 1rem;
+      width: 100%;
+      }
+      .form-control{
+        font-size: 1rem;
+        width: 6rem;
+        display: inline-block;
+      }
+      .logo {
+        padding: 2rem;
+      }
+      .logo-img{
+        width: 60%;
+      }
+      .input-box{
+        margin: 1rem;
+        padding: 1rem;
+      }
+    }
+    .main-text{
+        text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-div">
+    <div class="main-text">
+        <h1>
+          <img src="osusens.png" width="40rem" style="padding-bottom: 0.5rem;"/> osu!sensitivity
+        </h1>
+        <p>Mouse sensitivity to tablet area.<br>The formula is <i style="font-family: 'Georgia', 'STIX Two Text', serif;">full W & H / Sensitivity = new W & H</i> </style> </p>
+    </div>
+    <div class="input-box border">
+      <label for="sens">Sensitivity: </label>
+      <input class="form-control" id="sens" value="1.0" onkeyup="sens()"> x
+      <input type="range" class="form-range" min="0.4" max="6" step="0.01" id="sensRange" oninput="slider()">
+    </div>
+    <div class="input-box border" id="full">
+      <label>Full Tablet Area: </label>
+      <br />
+      <br />
+      <input class="form-control" id="fullW" placeholder="Width" onkeyup="execute()"> mm X 
+      <input class="form-control" id="fullH" placeholder="Height" onkeyup="execute()"> mm
+    </div>
+    <div class="input-box border" id="new">
+      <label>New Tablet Area: </label>
+      <br />
+      <br />
+      <input class="form-control" id="newW" placeholder="Width" onkeyup="execute()"> mm X 
+      <input class="form-control" id="newH" placeholder="Height" onkeyup="execute()"> mm
+      <br />
+      <br />
+      <button onclick="copy1()" id="copyButton" class="btn btn-primary mb-3">Copy Width</button>
+      <button onclick="copy2()" id="copyButton" class="btn btn-primary mb-3">Copy Height</button>
+    </div>
+    
+  </div>
+  <div style="bottom: 15px;text-align: center;width: 100%;padding: 1rem;">Calculator built by <a href="https://mdkj.dev/">Madekuji-san</a>.<br />Code on <a href="https://github.com/Madekuji/osu-sensitivity">GitHub</a>.<br />Check out <a href="https://www.facebook.com/groups/officialosuphilippines">osu!Philippines</a>!
+  </div>
+</body>
+</html>
